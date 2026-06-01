@@ -1,0 +1,15 @@
+# ── runtime ──
+boto3>=1.34
+pandas>=2.2
+requests>=2.31
+snowflake-connector-python>=3.7
+tenacity>=8.2
+python-dotenv>=1.0
+
+# ── transform ──
+dbt-snowflake>=1.7
+
+# ── dev / CI ──
+pytest>=8.0
+ruff>=0.4
+sqlfluff>=3.0

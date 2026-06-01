@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: synthea_raw
+    description: "Raw Synthea synthetic patient data, loaded from S3 into Snowflake."
+    database: "{{ env_var('SNOWFLAKE_DATABASE', 'RWE') }}"
+    schema: raw
+    tables:
+      - name: patients
+      - name: conditions
+      - name: procedures
+      - name: medications
+      - name: encounters

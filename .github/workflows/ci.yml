@@ -1,0 +1,55 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  python:
+    name: Python lint & tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install ruff pytest
+      - name: Lint (ruff)
+        run: ruff check .
+      - name: Unit tests (pytest)
+        run: pytest -q
+
+  sql:
+    name: dbt SQL lint (no warehouse needed)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install sqlfluff
+      - name: Lint SQL (sqlfluff)
+        run: sqlfluff lint dbt/rwe_dbt/models
+
+  # ─────────────────────────────────────────────────────────────
+  # Enable this job once you've added Snowflake secrets in the repo:
+  # Settings → Secrets and variables → Actions → New repository secret
+  # (SNOWFLAKE_ACCOUNT, SNOWFLAKE_USER, SNOWFLAKE_PASSWORD, ...)
+  # Then uncomment to run a real dbt build + tests on every push.
+  # ─────────────────────────────────────────────────────────────
+  # dbt:
+  #   name: dbt build (Snowflake)
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+  #     SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+  #     SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+  #     SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+  #     SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+  #     SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+  #     DBT_PROFILES_DIR: dbt/rwe_dbt
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: "3.11"
+  #     - run: pip install dbt-snowflake
+  #     - run: dbt build --project-dir dbt/rwe_dbt

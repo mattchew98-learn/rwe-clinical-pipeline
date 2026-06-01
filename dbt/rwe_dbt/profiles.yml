@@ -1,0 +1,17 @@
+# Env-var driven so the SAME file works locally and in CI.
+# Local:  export SNOWFLAKE_ACCOUNT=... SNOWFLAKE_USER=... etc.
+# CI:     provide them as GitHub Actions secrets.
+# Point dbt at this file with:  export DBT_PROFILES_DIR=dbt/rwe_dbt
+rwe_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'SYSADMIN') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'WH_DEV') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE', 'RWE') }}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA', 'ANALYTICS') }}"
+      threads: 4

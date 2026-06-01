@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Secrets / env
+.env
+
+# Synthea output (raw data — don't commit)
+output/
+
+# dbt
+dbt/rwe_dbt/target/
+dbt/rwe_dbt/dbt_packages/
+dbt/rwe_dbt/logs/
+logs/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

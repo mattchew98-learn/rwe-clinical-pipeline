@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: mart_diabetic_cohort
+    description: >
+      Diabetic patient cohort with demographics and clinical-history summary.
+      One row per patient who has at least one diabetes-related condition.
+    columns:
+      - name: patient_id
+        description: "Patient identifier."
+        data_tests: [not_null, unique]
+      - name: condition_count
+        description: "Total number of recorded conditions for the patient."
+      - name: active_medication_count
+        description: "Number of medications with no stop date (currently active)."
