@@ -1,6 +1,6 @@
 # RWE Clinical Cohort Pipeline
 
-![ci](https://github.com/<you>/rwe-clinical-pipeline/actions/workflows/ci.yml/badge.svg)
+![ci](https://github.com/mattchew98-learn/rwe-clinical-pipeline/actions/workflows/ci.yml/badge.svg)
 
 An end-to-end data pipeline that ingests synthetic patient records, lands them
 in the cloud, and transforms them into a **research-ready patient cohort** —

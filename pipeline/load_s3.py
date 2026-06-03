@@ -31,3 +31,17 @@ def upload_to_s3(files: list[pathlib.Path], cfg: S3Config | None = None) -> int:
         count += 1
     log.info("uploaded %d files to s3://%s/%s", count, cfg.bucket, cfg.prefix)
     return count
+
+if __name__ == "__main__":
+    csv_dir = pathlib.Path("csvfiles")
+
+    files = list(csv_dir.glob("*.csv"))
+
+    if not files:
+        raise FileNotFoundError("No CSV files found in csvfiles/")
+
+    print(f"Found {len(files)} CSV files")
+
+    uploaded_count = upload_to_s3(files)
+
+    print(f"Uploaded {uploaded_count} files successfully")
