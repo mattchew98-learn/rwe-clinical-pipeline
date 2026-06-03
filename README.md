@@ -67,6 +67,7 @@ cp .env.example .env   # fill in your AWS + Snowflake values, then: set -a; sour
 
 # 2. Generate synthetic data (Java 17+)
 java -jar synthea-with-dependencies.jar --exporter.csv.export=true -p 1000
+# Output lands in ./output/csv/
 
 # 3. Run the ingestion pipeline (extract -> S3 -> Snowflake)
 python main.py
